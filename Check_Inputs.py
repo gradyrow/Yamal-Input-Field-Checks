@@ -2,67 +2,51 @@ import re
 import os
 
 
-def hostInput(input):
-    pattern = re.compile('^[a-zA-Z0-9 ]+$')
-    pattern2 = re.compile('^\d{3}\.\d{3}\.\d{3}\.\d{3}$')
-    if pattern.match(input):
-        print("Valid host input.")
-    elif pattern2.match(input):
-        print("Valid host input.")
-    else:
-        print("Invalid input. Please enter a number.")
+def bad_input_exception(input, pattern, invalid_message):
+    if pattern.match(input) is None:
+        print(invalid_message)  # bad __ input, create exception
 
+
+def hostInput(input):
+    host = re.compile('^[a-zA-Z0-9 ]+$|^\d{3}\.\d{3}\.\d{3}\.\d{3}$')
+    bad_input_exception(input, host, "Bad host")
 
 hostInput("129.132.147.128")
 
 
 def stateInput(input):
-    pattern = re.compile(r'\b(present|absent)\b', re.IGNORECASE)
-    if pattern.match(input):
-        print("Valid state input.")
-    else:
-        print("Invalid input. Please enter present or absent")
+    state = re.compile(r'\b(present|absent)\b', re.IGNORECASE)
+    bad_input_exception(input, state, "Bad state input")
 
 
 stateInput("present")
 
 
 def nameInput(input):
-    pattern = re.compile('^[a-zA-Z0-9 ]+$')
-    if pattern.match(input):
-        print("Valid name input.")
-    else:
-        print("Invalid input.")
+    name = re.compile('^[a-zA-Z0-9 ,.?!@#$%^&*();:/_+=-]+$')
+    bad_input_exception(input, name, "Bad name input")
+
 
 nameInput("Home Host Server")
 
 
 def portInput(input):
-    pattern = re.compile('^[0-9]{1,5}$')
-    if pattern.match(input):
-        print("Valid port input.")
-    else:
-        print("Invalid port input.")
+    port = re.compile('^[0-9]{1,5}$')
+    bad_input_exception(input, port, "Bad state input")
 
 portInput("2556")
 
-def toFromInput(input):
-    pattern = re.compile(r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$')
-    if pattern.match(input):
-        print("Valid email input.")
-    else:
-        print("Invalid input.")
+def emailInput(input):
+    email = re.compile(r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$')
+    bad_input_exception(input, email, "Bad state input")
 
 
-toFromInput("gradyrow@hotmail.com")
+emailInput("gradyrow@hotmail.com")
 
 
 def bodyMsgInput(input):
-    pattern = re.compile('^"[a-zA-Z0-9 ]+"$')
-    if pattern.match(input):
-        print("Valid bodyMsg input.")
-    else:
-        print("Invalid input.")
+    bodyMsg = re.compile('^"[a-zA-Z0-9 ,.?!@#$%^&*();:/_+=-]+"$')
+    bad_input_exception(input, bodyMsg, "Bad body/msg input")
 
 
 bodyMsgInput('"This is and email notification"')
@@ -70,22 +54,16 @@ bodyMsgInput('"This is and email notification"')
 
 
 def repoInput(input):
-    pattern = re.compile(r'^https://github\.com/[^/]+/[^/]+\.git$')
-    if pattern.match(input):
-        print("Valid repo input.")
-    else:
-        print("Invalid repo input.")
+    repo = re.compile(r'^https://github\.com/[^/]+/[^/]+\.git$')
+    bad_input_exception(input, repo, "Bad repo input")
 
 
 repoInput('https://github.com/example/repo.git')
 
 
 def destInput(input):
-    pattern = re.compile(r'^/[^/]+(/[^/]*)*$')
-    if pattern.match(input):
-        print("Valid dest input.")
-    else:
-        print("Invalid dest input.")
+    dest = re.compile(r'^/[^/]+(/[^/]*)*$')
+    bad_input_exception(input, dest, "Bad state input")
 
 
 destInput('/path/to/the/destination')
