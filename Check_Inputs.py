@@ -59,10 +59,7 @@ toFromInput("gradyrow@hotmail.com")
 
 def bodyMsgInput(input):
     pattern = re.compile('^"[a-zA-Z0-9 ]+"$')
-    pattern2 = re.compile('^\d{3}\.\d{3}\.\d{3}\.\d{3}$')
     if pattern.match(input):
-        print("Valid bodyMsg input.")
-    elif pattern2.match(input):
         print("Valid bodyMsg input.")
     else:
         print("Invalid input.")
