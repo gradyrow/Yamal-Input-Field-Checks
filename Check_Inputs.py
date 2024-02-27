@@ -2,11 +2,15 @@ import re
 
 
 def bad_input_exception(input, pattern, invalid_message):
-    try:
+    if pattern.match(input) is None:
+        error_message = f"Error: {invalid_message}"
+        print(error_message)  # Print the error message
+        raise ValueError(error_message)  # Raise a ValueError with the error message
+"""    try:
         if pattern.match(input) is None:
             print(invalid_message)  # bad __ input, create exception
     except TypeError:
-        print(invalid_message)
+        print(invalid_message)"""
 
 def hostInput(input):
     if input is not None:
