@@ -1,5 +1,4 @@
 import re
-import os
 
 
 def bad_input_exception(input, pattern, invalid_message):
@@ -12,7 +11,7 @@ def bad_input_exception(input, pattern, invalid_message):
 def hostInput(input):
     if input is not None:
         host = re.compile('^[a-zA-Z0-9 ]+$|^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$')
-        bad_input_exception(input, host, "Bad host")
+        bad_input_exception(input, host, "Bad host input")
 
 hostInput("169.0.0.4")
 
@@ -22,7 +21,7 @@ def stateInput(input):
     bad_input_exception(input, state, "Bad state input")
 
 
-    stateInput("present")
+stateInput("present")
 
 
 def nameSubjectInput(input):
@@ -35,13 +34,13 @@ nameSubjectInput("Home Host Server")
 
 def portInput(input):
     port = re.compile('^[0-9]{1,5}$')
-    bad_input_exception(input, port, "Bad state input")
+    bad_input_exception(input, port, "Bad port input")
 
 portInput("2556")
 
 def emailInput(input):
     email = re.compile(r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$')
-    bad_input_exception(input, email, "Bad state input")
+    bad_input_exception(input, email, "Bad email input")
 
 
 emailInput("gradyrow@hotmail.com")
@@ -71,19 +70,22 @@ countInput("1")
 
 
 def unitInput(input):
-    unit = re.compile(r'\b(seconds|minutes|hours)\b', re.IGNORECASE)
+    unit = re.compile(r'\b(seconds|minutes|hours|days)\b', re.IGNORECASE)
     bad_input_exception(input, unit, "Bad unit input")
 
 
 unitInput("minutes")
 
 
-def timespecInput(input):  # needs work
-    timespec = re.compile(r'\b(seconds|minutes|hours)\b', re.IGNORECASE)
+def timespecInput(input):
+    timespec = re.compile(r'^(now \+ \d+ (seconds?|minutes?|hours?|days?)|\d{4}|\d{12}|\d{4}-\d{2}-\d{2}T\d{2}:\d{2})$', re.IGNORECASE)
     bad_input_exception(input, timespec, "Bad timespec input")
 
 
-unitInput("minutes")
+timespecInput("now + 12 hours")
+timespecInput("2300")
+timespecInput("201807012300")
+timespecInput("2018-07-01T23:00")
 
 def repoInput(input):
     repo = re.compile(r'^https://github\.com/[^/]+/[^/]+\.git$')
@@ -95,7 +97,7 @@ repoInput('https://github.com/example/repo.git')
 
 def destInput(input):
     dest = re.compile(r'^/[^/]+(/[^/]*)*$')
-    bad_input_exception(input, dest, "Bad state input")
+    bad_input_exception(input, dest, "Bad dest input")
 
 
 destInput('/path/to/the/destination')
